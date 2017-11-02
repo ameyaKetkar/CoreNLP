@@ -1,13 +1,23 @@
 package edu.stanford.nlp.ling.tokensregex;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 import java.util.function.ToDoubleFunction;
+
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.tokensregex.types.Value;
 import edu.stanford.nlp.pipeline.ChunkAnnotationUtils;
 import edu.stanford.nlp.pipeline.CoreMapAggregator;
-import edu.stanford.nlp.util.*;
+import edu.stanford.nlp.util.Comparators;
+import edu.stanford.nlp.util.CoreMap;
+import edu.stanford.nlp.util.Interval;
+import edu.stanford.nlp.util.IntervalTree;
+import edu.stanford.nlp.util.TypesafeMap;
 
 /**
  * Matched Expression represents a chunk of text that was matched from an original segment of text.

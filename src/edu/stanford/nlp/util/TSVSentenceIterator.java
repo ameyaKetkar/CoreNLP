@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.OptionalInt;
 
 import static edu.stanford.nlp.util.TSVUtils.unescapeSQL;
 
@@ -132,7 +133,7 @@ public class TSVSentenceIterator implements Iterator<Sentence> {
     // Document specific stuff.
     Optional<String> docId = Optional.empty();
     Optional<String> sentenceId = Optional.empty();
-    Optional<Integer> sentenceIndex = Optional.empty();
+    OptionalInt sentenceIndex = OptionalInt.empty();
 
     for(Pair<SentenceField, String> entry : Iterables.zip(fields, entries)) {
       SentenceField field = entry.first;
@@ -145,7 +146,7 @@ public class TSVSentenceIterator implements Iterator<Sentence> {
           docId = Optional.of(value);
           break;
         case SENTENCE_INDEX:
-          sentenceIndex = Optional.of(Integer.parseInt(value));
+          sentenceIndex = OptionalInt.of(Integer.parseInt(value));
           break;
         case GLOSS:
           value = value.replace("\\n", "\n").replace("\\t", "\t");

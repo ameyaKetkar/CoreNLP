@@ -1,5 +1,10 @@
 package edu.stanford.nlp.naturalli;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.OptionalDouble;
+
 import edu.stanford.nlp.ie.util.IETestUtils;
 import edu.stanford.nlp.ie.util.RelationTriple;
 import edu.stanford.nlp.international.Language;
@@ -10,10 +15,6 @@ import edu.stanford.nlp.semgraph.semgrex.SemgrexPattern;
 import edu.stanford.nlp.trees.GrammaticalRelation;
 import edu.stanford.nlp.util.Pair;
 import junit.framework.TestCase;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 /**
  * A test of various functions in {@link edu.stanford.nlp.ie.util.RelationTriple}.
@@ -99,7 +100,7 @@ public class RelationTripleSegmenterTest extends TestCase {
     SemanticGraph tree = info.first;
     List<CoreLabel> sentence = info.second;
     // Run extractor
-    Optional<RelationTriple> segmented = new RelationTripleSegmenter(allNominals).segment(tree, Optional.empty());
+    Optional<RelationTriple> segmented = new RelationTripleSegmenter(allNominals).segment(tree, OptionalDouble.empty());
     if (segmented.isPresent() && listIndex == 0) {
       return segmented;
     }

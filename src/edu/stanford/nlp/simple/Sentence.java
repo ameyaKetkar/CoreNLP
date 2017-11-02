@@ -706,31 +706,31 @@ public class Sentence {
    * @param mode  The type of dependency to use (e.g., basic, collapsed, collapsed cc processed).
    * @return A list of the (optional) governors of each token in the sentence.
    */
-  public List<Optional<Integer>> governors(Properties props, SemanticGraphFactory.Mode mode) {
+  public List<OptionalInt> governors(Properties props, SemanticGraphFactory.Mode mode) {
     document.runDepparse(props);
-    List<Optional<Integer>> governors = new ArrayList<>(this.length());
-    for (int i = 0; i < this.length(); ++i) { governors.add(Optional.empty()); }
+    List<OptionalInt> governors = new ArrayList<>(this.length());
+    for (int i = 0; i < this.length(); ++i) { governors.add(OptionalInt.empty()); }
     for (CoreNLPProtos.DependencyGraph.Edge edge : dependencies(mode).getEdgeList()) {
-      governors.set(edge.getTarget() - 1, Optional.of(edge.getSource() - 1));
+      governors.set(edge.getTarget() - 1, OptionalInt.of(edge.getSource() - 1));
     }
     for (int root : impl.getBasicDependencies().getRootList()) {
-      governors.set(root - 1, Optional.of(-1));
+      governors.set(root - 1, OptionalInt.of(-1));
     }
     return governors;
   }
 
   /** @see Sentence#governors(java.util.Properties, SemanticGraphFactory.Mode) */
-  public List<Optional<Integer>> governors(Properties props) {
+  public List<OptionalInt> governors(Properties props) {
     return governors(props, SemanticGraphFactory.Mode.ENHANCED);
   }
 
   /** @see Sentence#governors(java.util.Properties, SemanticGraphFactory.Mode) */
-  public List<Optional<Integer>> governors(SemanticGraphFactory.Mode mode) {
+  public List<OptionalInt> governors(SemanticGraphFactory.Mode mode) {
     return governors(this.defaultProps, mode);
   }
 
   /** @see Sentence#governors(java.util.Properties, SemanticGraphFactory.Mode) */
-  public List<Optional<Integer>> governors() {
+  public List<OptionalInt> governors() {
     return governors(this.defaultProps, SemanticGraphFactory.Mode.ENHANCED);
   }
 

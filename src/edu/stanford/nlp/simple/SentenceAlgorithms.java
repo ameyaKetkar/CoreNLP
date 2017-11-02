@@ -240,7 +240,7 @@ public class SentenceAlgorithms {
     if (tokenSpan.size() == 0) {
       throw new IllegalArgumentException("Cannot find head word of empty span!");
     }
-    List<Optional<Integer>> governors = sentence.governors();
+    List<OptionalInt> governors = sentence.governors();
     if (tokenSpan.start() >= governors.size()) {
       throw new IllegalArgumentException("Span is out of range: " + tokenSpan + "; sentence: " + sentence);
     }
@@ -250,7 +250,7 @@ public class SentenceAlgorithms {
 
     // Find where to start searching up the dependency tree
     int candidateStart = tokenSpan.end() - 1;
-    Optional<Integer> parent;
+    OptionalInt parent;
     while ( !(parent = governors.get(candidateStart)).isPresent() ) {
       candidateStart -= 1;
       if (candidateStart < tokenSpan.start()) {
@@ -262,8 +262,8 @@ public class SentenceAlgorithms {
 
     // Search up the dependency tree
     Set<Integer> seen = new HashSet<>();
-    while (parent.isPresent() && parent.get() >= tokenSpan.start() && parent.get() < tokenSpan.end()) {
-      candidate = parent.get();
+    while (parent.isPresent() && parent.getAsInt() >= tokenSpan.start() && parent.getAsInt() < tokenSpan.end()) {
+      candidate = parent.getAsInt();
       if (seen.contains(candidate)) {
         return candidate;
       }
@@ -451,7 +451,7 @@ public class SentenceAlgorithms {
     LinkedList<Integer> rootToStart = new LinkedList<>();
     LinkedList<Integer> rootToEnd = new LinkedList<>();
     int startAncestor = start;
-    List<Optional<Integer>> governors = sentence.governors();
+    List<OptionalInt> governors = sentence.governors();
     Set<Integer> seenVertices = new HashSet<>();
     while (startAncestor >= 0 && governors.get(startAncestor).isPresent()) {
       if (seenVertices.contains(startAncestor)) {
@@ -460,7 +460,7 @@ public class SentenceAlgorithms {
       }
       seenVertices.add(startAncestor);
       rootToStart.addFirst(startAncestor);
-      startAncestor = governors.get(startAncestor).get();
+      startAncestor = governors.get(startAncestor).getAsInt();
     }
     if (startAncestor == -1) {
       rootToStart.addFirst(-1);
@@ -474,7 +474,7 @@ public class SentenceAlgorithms {
       }
       seenVertices.add(endAncestor);
       rootToEnd.addFirst(endAncestor);
-      endAncestor = governors.get(endAncestor).get();
+      endAncestor = governors.get(endAncestor).getAsInt();
     }
     if (endAncestor == -1) {
       rootToEnd.addFirst(-1);

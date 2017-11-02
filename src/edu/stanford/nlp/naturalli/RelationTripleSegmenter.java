@@ -1,5 +1,17 @@
 package edu.stanford.nlp.naturalli;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
+import java.util.OptionalDouble;
+import java.util.Queue;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import edu.stanford.nlp.ie.machinereading.structure.Span;
 import edu.stanford.nlp.ie.util.RelationTriple;
 import edu.stanford.nlp.ling.CoreLabel;
@@ -10,11 +22,12 @@ import edu.stanford.nlp.semgraph.SemanticGraph;
 import edu.stanford.nlp.semgraph.SemanticGraphEdge;
 import edu.stanford.nlp.semgraph.semgrex.SemgrexMatcher;
 import edu.stanford.nlp.semgraph.semgrex.SemgrexPattern;
-import edu.stanford.nlp.util.*;
+import edu.stanford.nlp.util.CollectionUtils;
+import edu.stanford.nlp.util.CoreMap;
+import edu.stanford.nlp.util.FixedPrioritiesPriorityQueue;
 import edu.stanford.nlp.util.PriorityQueue;
-
-import java.util.*;
-import java.util.stream.Collectors;
+import edu.stanford.nlp.util.StringUtils;
+import edu.stanford.nlp.util.Triple;
 
 /**
  * This class takes a {@link edu.stanford.nlp.naturalli.SentenceFragment} and converts it to a conventional
@@ -539,7 +552,7 @@ public class RelationTripleSegmenter {
    */
   @SuppressWarnings("UnnecessaryLabelOnContinueStatement")
   private Optional<RelationTriple> segmentVerb(SemanticGraph parse,
-                                               Optional<Double> confidence,
+                                               OptionalDouble confidence,
                                                boolean consumeAll) {
     // Run pattern loop
     PATTERN_LOOP: for (SemgrexPattern pattern : VERB_PATTERNS) {  // For every candidate pattern...
@@ -697,7 +710,7 @@ public class RelationTripleSegmenter {
    * Same as {@link RelationTripleSegmenter#segmentVerb}, but with ACL clauses.
    * This is a bit out of the ordinary, logic-wise, so it sits in its own function.
    */
-  private Optional<RelationTriple> segmentACL(SemanticGraph parse, Optional<Double> confidence, boolean consumeAll) {
+  private Optional<RelationTriple> segmentACL(SemanticGraph parse, OptionalDouble confidence, boolean consumeAll) {
     IndexedWord subject = parse.getFirstRoot();
     Optional<List<IndexedWord>> subjectSpan = getValidSubjectChunk(parse, subject, Optional.of("acl"));
     if (subjectSpan.isPresent()) {
@@ -817,7 +830,7 @@ public class RelationTripleSegmenter {
    * @param consumeAll if true, force the entire parse to be consumed by the pattern.
    * @return A relation triple, if this sentence matches one of the patterns of a valid relation triple.
    */
-  public Optional<RelationTriple> segment(SemanticGraph parse, Optional<Double> confidence, boolean consumeAll) {
+  public Optional<RelationTriple> segment(SemanticGraph parse, OptionalDouble confidence, boolean consumeAll) {
     // Copy and clean the tree
     parse = new SemanticGraph(parse);
 
@@ -878,7 +891,7 @@ public class RelationTripleSegmenter {
    * Segment the given parse tree, forcing all nodes to be consumed.
    * @see RelationTripleSegmenter#segment(edu.stanford.nlp.semgraph.SemanticGraph, Optional)
    */
-  public Optional<RelationTriple> segment(SemanticGraph parse, Optional<Double> confidence) {
+  public Optional<RelationTriple> segment(SemanticGraph parse, OptionalDouble confidence) {
     return segment(parse, confidence, true);
   }
 }

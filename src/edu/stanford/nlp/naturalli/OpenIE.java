@@ -333,7 +333,7 @@ public class OpenIE implements Annotator  {
    * @see OpenIE#relationInFragment(SentenceFragment, CoreMap)
    */
   public Optional<RelationTriple> relationInFragment(SentenceFragment fragment) {
-    return segmenter.segment(fragment.parseTree, Optional.of(fragment.score), consumeAll);
+    return segmenter.segment(fragment.parseTree, OptionalDouble.of(fragment.score), consumeAll);
   }
 
   /**
@@ -354,7 +354,7 @@ public class OpenIE implements Annotator  {
    * @return A relation triple if we could find one; otherwise, {@link Optional#empty()}.
    */
   private Optional<RelationTriple> relationInFragment(SentenceFragment fragment, CoreMap sentence) {
-    return segmenter.segment(fragment.parseTree, Optional.of(fragment.score), consumeAll);
+    return segmenter.segment(fragment.parseTree, OptionalDouble.of(fragment.score), consumeAll);
   }
 
   /**
