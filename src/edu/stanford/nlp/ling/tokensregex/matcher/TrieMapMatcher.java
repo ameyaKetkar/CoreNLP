@@ -1,10 +1,20 @@
 package edu.stanford.nlp.ling.tokensregex.matcher;
 
-import edu.stanford.nlp.util.*;
+import static edu.stanford.nlp.util.IntervalTree.getNonOverlappingMaxScore;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 import java.util.function.ToDoubleFunction;
+
+import edu.stanford.nlp.util.ErasureUtils;
+import edu.stanford.nlp.util.HasInterval;
+import edu.stanford.nlp.util.Interval;
+import edu.stanford.nlp.util.IntervalTree;
 
 /**
  * The {@code TrieMapMatcher} provides functions to match against a trie.
@@ -435,7 +445,7 @@ public class TrieMapMatcher<K,V> {
   }
 
   public List<Match<K,V>> getNonOverlapping(List<Match<K,V>> allMatches, Function<? super Match<K,V>, Double> scoreFunc) {
-    return IntervalTree.getNonOverlappingMaxScore(allMatches, scoreFunc);
+    return getNonOverlappingMaxScore(allMatches, scoreFunc);
   }
 
   protected void updateAllMatches(TrieMap<K,V> trie, List<Match<K,V>> matches, List<K> matched, List<K> list, int start, int end) {

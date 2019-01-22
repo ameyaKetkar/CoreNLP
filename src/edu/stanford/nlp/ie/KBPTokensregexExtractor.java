@@ -1,5 +1,17 @@
 package edu.stanford.nlp.ie;
 
+import static edu.stanford.nlp.ling.tokensregex.MatchedExpression.EXPR_WEIGHT_SCORER;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
 import edu.stanford.nlp.io.IOUtils;
 import edu.stanford.nlp.io.RuntimeIOException;
 import edu.stanford.nlp.ling.CoreAnnotation;
@@ -16,9 +28,6 @@ import edu.stanford.nlp.util.CoreMap;
 import edu.stanford.nlp.util.Pair;
 import edu.stanford.nlp.util.logging.Redwood;
 import edu.stanford.nlp.util.logging.RedwoodConfiguration;
-
-import java.io.*;
-import java.util.*;
 
 /**
  * A tokensregex extractor for KBP.
@@ -113,7 +122,7 @@ public class KBPTokensregexExtractor implements KBPRelationExtractor {
         @SuppressWarnings("unchecked")
         List<MatchedExpression> extractions = extractor.extractExpressions(sentenceAsMap);
         if (extractions != null && extractions.size() > 0) {
-          MatchedExpression best = MatchedExpression.getBestMatched(extractions, MatchedExpression.EXPR_WEIGHT_SCORER);
+          MatchedExpression best = MatchedExpression.getBestMatched(extractions, EXPR_WEIGHT_SCORER);
           // Un-Annotate Sentence
           for (CoreLabel token : tokens) {
             token.remove(Subject.class);
