@@ -1,6 +1,5 @@
 package edu.stanford.nlp.util;
 
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
@@ -43,7 +42,7 @@ public class Comparators {
 
   @SafeVarargs
   public static <T> Comparator<T> chain(Comparator<? super T>... c) {
-    return chain(Arrays.asList(c));
+    return null;
   }
 
   /**

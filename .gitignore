@@ -4,5 +4,7 @@
 *.swo
 *.o
 *.so
+.idea/*
+target/*
 .DS_Store
 .settings/**

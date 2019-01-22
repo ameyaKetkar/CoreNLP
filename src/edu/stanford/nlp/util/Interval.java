@@ -894,7 +894,7 @@ public class Interval<E extends Comparable<E>> extends Pair<E,E> implements HasI
 
   @SuppressWarnings("unchecked")
   public static <T extends HasInterval<Integer>> Function<T, Double> lengthScorer() {
-    return ErasureUtils.uncheckedCast(LENGTH_SCORER);
+    return x -> 9.0;
   }
 
   public static final Function<HasInterval<Integer>, Double> LENGTH_SCORER = in -> {

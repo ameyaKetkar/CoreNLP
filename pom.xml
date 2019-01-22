@@ -144,7 +144,7 @@
   </dependencies>
   <build>
     <sourceDirectory>src</sourceDirectory>
-    <testSourceDirectory>test/src</testSourceDirectory>
+    <!--<testSourceDirectory>test/src</testSourceDirectory>-->
     <plugins>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -169,6 +169,68 @@
           </execution>
         </executions>
       </plugin>
+      <!--<plugin>-->
+        <!--<groupId>org.apache.maven.plugins</groupId>-->
+        <!--<artifactId>maven-compiler-plugin</artifactId>-->
+        <!--<version>3.8.0</version>-->
+        <!--<configuration>-->
+          <!--<source>8</source>-->
+          <!--<target>8</target>-->
+          <!--<compilerArgs>-->
+            <!--<arg>-XDcompilePolicy=simple</arg>-->
+            <!--<arg>-Xplugin:ErrorProne -XepDisableAllChecks -Xep:T2R -XepOpt:T2R:mappingLocation=${project.basedir}/mappings/ -XepPatchChecks:T2R -XepPatchLocation:${project.basedir}/</arg>-->
+          <!--</compilerArgs>-->
+          <!--<annotationProcessorPaths>-->
+            <!--<path>-->
+              <!--<groupId>com.google.errorprone</groupId>-->
+              <!--<artifactId>error_prone_core</artifactId>-->
+              <!--<version>2.3.3-SNAPSHOT</version>-->
+            <!--</path>-->
+          <!--</annotationProcessorPaths>-->
+        <!--</configuration>-->
+      <!--</plugin>-->
+      <!--<plugin>-->
+        <!--<groupId>org.apache.maven.plugins</groupId>-->
+        <!--<artifactId>maven-compiler-plugin</artifactId>-->
+        <!--<version>3.8.0</version>-->
+        <!--<configuration>-->
+          <!--<release>11</release>-->
+          <!--<annotationProcessorPaths>-->
+            <!--<path>-->
+              <!--<groupId>com.google.errorprone</groupId>-->
+              <!--<artifactId>error_prone_core</artifactId>-->
+              <!--<version>2.3.3-SNAPSHOT</version>-->
+            <!--</path>-->
+          <!--</annotationProcessorPaths>-->
+          <!--<compilerArgs>-->
+            <!--<arg>-XDcompilePolicy=simple</arg>-->
+            <!--<arg>-Xplugin:ErrorProne -XepDisableAllChecks -Xep:T2R -XepOpt:T2R:mappingLocation=${project.basedir}/mappings/ -XepPatchChecks:T2R -XepPatchLocation:${project.basedir}/-->
+            <!--</arg>-->
+          <!--</compilerArgs>-->
+        <!--</configuration>-->
+      <!--</plugin>-->
     </plugins>
   </build>
+  <profiles>
+  <profile>
+    <id>jdk8</id>
+    <activation>
+      <jdk>1.8</jdk>
+    </activation>
+    <build>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <configuration>
+            <fork>true</fork>
+            <compilerArgs combine.children="append">
+              <arg>-J-Xbootclasspath/p:/Users/ameya/GitRepoTrials/Latest/javac-9+181-r4173-1.jar</arg>
+            </compilerArgs>
+          </configuration>
+        </plugin>
+      </plugins>
+    </build>
+  </profile>
+  </profiles>
 </project>
