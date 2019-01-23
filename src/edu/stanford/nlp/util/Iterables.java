@@ -99,7 +99,7 @@ public class Iterables {
 
             while (inner.hasNext()) {
               T next = inner.next();
-              if (accept.apply(next)) {
+              if (inner.hasNext()) {
                 this.next = next;
                 this.queued = true;
                 return;
