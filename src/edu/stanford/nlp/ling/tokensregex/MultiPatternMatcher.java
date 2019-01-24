@@ -1,9 +1,19 @@
 package edu.stanford.nlp.ling.tokensregex;
 
-import edu.stanford.nlp.util.*;
+import static edu.stanford.nlp.util.IntervalTree.getNonOverlappingMaxScore;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.function.Function;
+
+import edu.stanford.nlp.util.IntervalTree;
+import edu.stanford.nlp.util.Iterables;
+import edu.stanford.nlp.util.RuntimeInterruptedException;
 
 /**
  * Matcher that takes in multiple patterns
@@ -160,7 +170,7 @@ public class MultiPatternMatcher<T> {
       }
       i++;
     }
-    List<SequenceMatchResult<T>> res = IntervalTree.getNonOverlappingMaxScore( all, SequenceMatchResult.TO_INTERVAL, scorer);
+    List<SequenceMatchResult<T>> res = getNonOverlappingMaxScore( all, SequenceMatchResult.TO_INTERVAL, scorer);
     Collections.sort(res, SequenceMatchResult.OFFSET_COMPARATOR);
 
     return res;
