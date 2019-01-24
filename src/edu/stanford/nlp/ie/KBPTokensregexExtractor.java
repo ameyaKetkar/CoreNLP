@@ -1,6 +1,7 @@
 package edu.stanford.nlp.ie;
 
 import static edu.stanford.nlp.ling.tokensregex.MatchedExpression.EXPR_WEIGHT_SCORER;
+import static edu.stanford.nlp.ling.tokensregex.MatchedExpression.getBestMatched;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -122,7 +123,7 @@ public class KBPTokensregexExtractor implements KBPRelationExtractor {
         @SuppressWarnings("unchecked")
         List<MatchedExpression> extractions = extractor.extractExpressions(sentenceAsMap);
         if (extractions != null && extractions.size() > 0) {
-          MatchedExpression best = MatchedExpression.getBestMatched(extractions, EXPR_WEIGHT_SCORER);
+          MatchedExpression best = getBestMatched(extractions, EXPR_WEIGHT_SCORER);
           // Un-Annotate Sentence
           for (CoreLabel token : tokens) {
             token.remove(Subject.class);
