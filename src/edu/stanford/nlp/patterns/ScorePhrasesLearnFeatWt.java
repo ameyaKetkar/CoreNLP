@@ -1,5 +1,7 @@
 package edu.stanford.nlp.patterns;
 
+import static edu.stanford.nlp.stats.Counters.retainKeys;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -363,7 +365,7 @@ public class ScorePhrasesLearnFeatWt<E extends Pattern> extends PhraseScorer<E> 
       else
         return true;
     };
-    Counters.retainKeys(posSims, retainPhrasesNotCloseToNegative);
+    retainKeys(posSims, retainPhrasesNotCloseToNegative);
     return new Pair(posSims, negSims);
   }
 
