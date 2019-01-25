@@ -189,26 +189,8 @@
           </annotationProcessorPaths>
         </configuration>
       </plugin>
-      <!--<plugin>-->
-        <!--<groupId>org.apache.maven.plugins</groupId>-->
-        <!--<artifactId>maven-compiler-plugin</artifactId>-->
-        <!--<version>3.8.0</version>-->
-        <!--<configuration>-->
-          <!--<release>11</release>-->
-          <!--<annotationProcessorPaths>-->
-            <!--<path>-->
-              <!--<groupId>com.google.errorprone</groupId>-->
-              <!--<artifactId>error_prone_core</artifactId>-->
-              <!--<version>2.3.3-SNAPSHOT</version>-->
-            <!--</path>-->
-          <!--</annotationProcessorPaths>-->
-          <!--<compilerArgs>-->
-            <!--<arg>-XDcompilePolicy=simple</arg>-->
-            <!--<arg>-Xplugin:ErrorProne -XepDisableAllChecks -Xep:T2R -XepOpt:T2R:mappingLocation=${project.basedir}/mappings/ -XepPatchChecks:T2R -XepPatchLocation:${project.basedir}/-->
-            <!--</arg>-->
-          <!--</compilerArgs>-->
-        <!--</configuration>-->
-      <!--</plugin>-->
+      <!-- mvn install:install-file -Dfile=/Users/ameya/FinalResults/error-prone/core/target/error_prone_core-2.3.3-SNAPSHOT.jar -DgroupId=com.google.errorprone -DartifactId=error_prone_core -Dversion=2.3.3-SNAPSHOT -Dpackaging=jar -->
+
     </plugins>
   </build>
   <profiles>
